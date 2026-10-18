@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* ===== Reset ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ===== Body ===== */
+        body {
+            font-family: "Poppins", Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ===== Main Container ===== */
+        .hotel-contener {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        /* ===== Hotel Title ===== */
+        .hotel-contener h3 {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 40px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        /* ===== Hall Card ===== */
+        .hotel-content {
+            display: flex;
+            gap: 25px;
+            background-color: #ffffff;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 35px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Hover Effect */
+        .hotel-content:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.14);
+        }
+
+        /* ===== Images ===== */
+        .hotel-content img {
+            width: 320px;
+            height: 230px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        /* ===== Hall Details ===== */
+        .hall-content {
+            flex: 1;
+        }
+
+        /* Hall Name */
+        .hall-content h2 {
+            font-size: 26px;
+            color: #1a5276;
+            margin-bottom: 10px;
+        }
+
+        /* Section Titles */
+        .hall-content h6 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 12px;
+            margin-bottom: 5px;
+            color: #000;
+        }
+
+        /* Description */
+        .hall-content p {
+            font-size: 15px;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .hall-content a {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 26px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #ffffff;
+            background: linear-gradient(135deg, #1a5276, #2c7fb8);
+            border-radius: 25px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(26, 82, 118, 0.3);
+        }
+
+        /* Hover Effect */
+        .hall-content a:hover {
+            background: linear-gradient(135deg, #154360, #1f618d);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(26, 82, 118, 0.4);
+        }
+
+        /* Active (Click) Effect */
+        .hall-content a:active {
+            transform: scale(0.96);
+        }
+
+        /* Mobile Friendly */
+        @media (max-width: 500px) {
+            .hall-content a {
+                width: 100%;
+                text-align: center;
+                padding: 12px;
+                font-size: 16px;
+            }
+        }
+
+        .hotel-contener h3 {
+            font-size: 24px;
+        }
+
+        .hall-content h2 {
+            font-size: 20px;
+        }
+
+        .hall-content p {
+            font-size: 14px;
+        }
+
+        .hall-content button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <form>
+        <div class="hotel-contener">
+            <h3>Hotel Vrishali Executive</h3>
+            <div class="hotel-content">
+                <img src="{{ url_for('static', filename='platinum.jpg') }}">
+                <div class="hall-content">
+                    <h2>Platinum Palace</h2>
+                    <p>The first A/C Hall launched in Kolhapur city. The hall accommodates upto 350 pax in theatre style
+                        seating and up to 250 pax in a syndicate (round table) style seating. An ideal place to host
+                        plush corporate events, reception, private & intimate family events. A separate food court
+                        offers ample space to set-up delicious & sumptuous buffet served as per your choice.</p>
+                    <h6>Capacity</h6>
+                    <p>350 Person approx </p>
+                    <h6>Facilities & Amenities</h6>
+                    <p> Air Conditioning,
+                        High-speed Wi-Fi,
+                        Projector & Screen,
+                        LED / LCD Display,
+                        Sound system & Microphone,
+                        Podium / Stage,
+                        Whiteboard / Flip chart,
+                        Power backup,
+                        Lighting control.
+                    </p>
+                    <a href="{{ url_for('select_hall', hall_name='Platinum Palace') }}">Book</a>
+                </div>
+            </div>
+
+            <div class="hotel-content">
+                <img src="{{url_for('static', filename='ivory.jpg')}}">
+                <div class="hall-content">
+                    <h2>Ivory Hall</h2>
+                    <p>Book a conference room by the hour for events and conventions, or use it as a training room for
+                        your staff.
+                        All of our meeting spaces give you access to video conferencing facilities, allowing the entire
+                        team to call in, while our event space can be tailored to your layout requirements for product
+                        launches . Mini Conference Hall is well set for conducting meeting/conference. It has a seating
+                        capacity of 50-60 People..</p>
+                    <h6>Capacity</h6>
+                    <p>Maximum Capacity: 50 Persons</p>
+                    <h6>Facilities & Amenities</h6>
+                    <p>
+                        Fully Air-Conditioned,
+                        High-Speed Wi-Fi,
+                        Projector with Screen,
+                        LED TV Display,
+                        Sound System with Microphone,
+                        Podium / Speaker Stand,
+                        Whiteboard & Markers,
+                        Power Backup,
+                        Adjustable Lighting.
+                    </p>
+                    <a href="{{ url_for('select_hall', hall_name='Ivory') }}">Book</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>

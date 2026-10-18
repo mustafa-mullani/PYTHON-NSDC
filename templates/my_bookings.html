@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Bookings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            color: #0f172a;
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        /* Booking Card */
+        .booking-card {
+            background: #ffffff;
+            padding: 22px 25px;
+            border-radius: 14px;
+            box-shadow: 0 12px 25px rgba(15, 23, 42, 0.08);
+            margin-bottom: 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .booking-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 35px rgba(15, 23, 42, 0.12);
+        }
+
+        .booking-info p {
+            margin: 6px 0;
+            color: #334155;
+            font-size: 15px;
+        }
+
+        .booking-info strong {
+            color: #020617;
+        }
+
+        /* Status Pills */
+        .status {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .approved {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .paid,
+        .confirmed {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .rejected {
+            background: #fee2e2;
+            color: #7f1d1d;
+        }
+
+        .cancelled {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        /* Buttons */
+        .btn {
+            text-decoration: none;
+            padding: 9px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-left: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-view {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-view:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-pay {
+            background: #7c3aed;
+            color: white;
+        }
+
+        .btn-pay:hover {
+            background: #6d28d9;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .paid-text {
+            color: #16a34a;
+            font-weight: 600;
+            margin-left: 12px;
+            font-size: 14px;
+        }
+
+        /* Empty State */
+        .empty {
+            text-align: center;
+            color: #64748b;
+            background: white;
+            padding: 40px;
+            border-radius: 14px;
+            font-size: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .booking-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .btn {
+                margin-left: 0;
+                margin-right: 8px;
+                margin-top: 6px;
+            }
+        }
+
+        .flash-container {
+            position: fixed;
+            top: 80px;
+            right: 630px;
+            z-index: 9999;
+        }
+
+        .flash {
+            min-width: 260px;
+            margin-bottom: 12px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            animation: slideIn 0.4s ease;
+        }
+
+        /* Success */
+        .flash-success {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+        }
+
+        /* Error */
+        .flash-error {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+        }
+
+        /* Warning */
+        .flash-warning {
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+        }
+
+        /* Default */
+        .flash-message {
+            background: #334155;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% include "nav.html" %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-container">
+        {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <h2>📖 My Bookings</h2>
+
+        {% if bookings %}
+        {% for booking in bookings %}
+        <div class="booking-card">
+
+            <div class="booking-info">
+                <p><strong>Hotel:</strong> {{ booking.hotel_name }}</p>
+                <p><strong>Event Date:</strong> {{ booking.event_date }}</p>
+
+                {% if booking.status == 'pending' %}
+                <span class="status pending">Pending</span>
+                {% elif booking.status == 'approved' %}
+                <span class="status approved">Approved</span>
+                {% elif booking.status == 'paid' %}
+                <span class="status paid">Confirmed</span>
+                {% elif booking.status == 'rejected' %}
+                <span class="status rejected">Rejected</span>
+                {% elif booking.status == 'cancelled'%}
+                <span class="status cancelled">cancelled</span>
+                {% elif booking.refund_status == 'requested' %}
+                <span class="status pending">Refund Requested</span>
+                {% elif booking.refund_status == 'refunded' %}
+                <span class="status confirmed">Refunded ₹{{ booking.refund_amount }}</span>
+
+                {% endif %}
+            </div>
+
+            <div>
+                <a href="{{ url_for('booking_details', booking_id=booking.id) }}" class="btn btn-view">
+                    View Details
+                </a>
+
+                {% set event_start = (booking.event_date ~ ' ' ~ booking.start_time) | todatetime('%Y-%m-%d %H:%M') %}
+
+                {% if booking.status not in ['cancelled', 'rejected']
+                and booking.event_status != 'ended' %}
+                <a href="{{ url_for('cancel_booking', booking_id=booking.id) }}"
+                    onclick="return confirm('Are you sure you want to cancel this booking?')" class="btn btn-danger">
+                    Cancel Booking
+                </a>
+                {% endif %}
+
+
+
+                {% if booking.status == 'approved' and booking.payment_status == 'unpaid' %}
+                <a href="{{ url_for('payment_review', booking_id=booking.id) }}" class="btn btn-pay">
+
+                    Pay Now
+                </a>
+                {% elif booking.status == 'confirmed' %}
+                <span class="paid-text">Paid ✔</span>
+                {% endif %}
+
+                {% if booking.payment_status == 'billed' %}
+                <a href="{{ url_for('invoice', booking_id=booking.id) }}" class="btn btn-view">
+                    Invoice
+                </a>
+                {% endif %}
+
+            </div>
+
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="empty">
+            No bookings found.
+        </div>
+        {% endif %}
+    </div>
+    <script>
+        setTimeout(() => {
+            document.querySelectorAll('.flash').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateX(100%)';
+                setTimeout(() => el.remove(), 400);
+            });
+        }, 4000);
+    </script>
+</body>
+
+</html>

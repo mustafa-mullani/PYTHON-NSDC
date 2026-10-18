@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #333;
+            font-size: 28px;
+        }
+
+        .userprof {
+            background: #ffffff;
+            width: 350px;
+            margin: 30px auto;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .userprof img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #007bff;
+            margin-bottom: 15px;
+        }
+
+        .userprof h3 {
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .userprof p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Update & Password buttons */
+        .updates {
+            width: 350px;
+            margin: 20px auto;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .updates a {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            background: #007bff;
+            border-radius: 5px;
+            transition: 0.3s ease;
+        }
+
+        .updates a:hover {
+            background: #0056b3;
+        }
+
+        /* Logout button */
+        .close a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: red;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s ease;
+        }
+
+        .close a:hover {
+            background: #b30000;
+        }
+
+        .flash-container {
+            position: fixed;
+            top: 80px;
+            right: 630px;
+            z-index: 9999;
+        }
+
+        .flash {
+            min-width: 260px;
+            margin-bottom: 12px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            animation: slideIn 0.4s ease;
+        }
+
+        /* Success */
+        .flash-success {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+        }
+
+        /* Error */
+        .flash-error {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+        }
+
+        /* Warning */
+        .flash-warning {
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+        }
+
+        /* Default */
+        .flash-message {
+            background: #334155;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include "nav.html" %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-container">
+        {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <h2>User Profile</h2>
+
+    {% if user %}
+    <div class="userprof">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJ0AAACUCAMAAAC+99ssAAAAMFBMVEXk5ueutLfn6eqrsbSorrLf4eLQ09W7wMK2u76yt7rGyszX2tvT1tjb3t/BxsjLz9GWSO7eAAAERUlEQVR4nO2c3XqDIAyGJUFBVLz/ux1Y21nrH5CAB34n23rS9wkkhJCsqh49evTo0aNHjx4VFUBpgi15qHrom7Fp+qGeP7iHAIbGaiGlRCf3QyjTDPcwI1RGC0TxJcRWj8UNCFWv5IrsQyhVXxQQer222hefUF0xPOj0AdoMqOtCfOOR3f7tZ0r4R31uuGLmg+Yi22S+Pi8ejNfhPF+TFc/KEDghpMmHBzbIchPemAsPTDCcW9xM1gvccx+8LHsPusA998HLcW4McWxeNT+dilrXyXiK23hgItd1wmN2XEhYV6eWeW3j13UyHu/a9klwLihz+i20aXBCKEa4VNO5te358FQqHOfO65JN53Yel9tGpCYbxrNMxoOEQPwvppgHPQkdUxoP6T7hhYYDrqqTg91LLQccdDRwPF4bmRL/iidJpognEx1LTNE0cG7jcdARmY7HLWqaaOc10NMNdHQMSV5AWedM9E5LFlBYLj9R5YmHjpyOvuBzc9vd2yvoIgpHwYIoM/ZiyI5jy3Yb6sjhKM9ZjvSTKHFnyqDSyk8LaQ46qoDHUn0nCymSwSlcgke08ZADjupigTwlPKKTFkcWOqrcneFW4ZVel/XSPHD+qT0dDtlekinqPJKtMkvgF1w+4ZWeCbRMPuGVXDnmfUNO3XlM58SsxJ3H/siYcpwxHWILupQDAxldYsaLD8lZ+hZic2T+h/dJkXBsB+y3otJQFLn6GKM8I1sXY3jvAoqMPXiheJjPcpMudy5OcPm7F6+34KHNjFb5sCwumQ/5suFDvPpKXEZbqKUXqv7MfLJl7PA4B2wOmrURdVO2F9/Zz8pN/0BUXfE+/Fcnfiv88MIby/3WqqY011tu+brRWK1bJ62sGbt7Tam8YGqn6a+yMCvBhkozVTNWNTRuXa16y1pjmm6oCjK6L66HbrQtvuZ5Vv7qP/XzPX4GKTckQN0Y5cd5jqOxg8RW2zHbCJK3Waembz4+JhaMPi6PA7+z+NChcG/O6EhSatOzHrmbw1nX5WM0VxYKQ6NjjLYyIRqG8w1q5500VW2haHMDt9sIzLYAlCPZDgSfJtGhvfiEIeFzGUhLzTbxIQEfdIruXXbFJ1LnMGt17WoTyacTqlJQjZS+sCWphkg+CLpRRwrjWraA7LX4jE+Hm+/aZZUGL9x8pzdVUr6wUgaMXGFkB08HNIGQDAOE4bXXN18GX/3V1VpQEbiLeFTN9sG68kyVIwTv6TyylLKc12kdMlsM3tYhHhSGO3y/zR2EN7TfoQ8U82KJ2h++qEujeckdxy2+6WZtPjETtuymafN5/hbr6rV1ZuTPS3b1G1ai/wsAg379lmgMkEgrxyCYKibUur/hLtFk1mqYkHDgiULfOw9saZ6VvhrhiuXDe8LlKxvd3AmRcNkLfy+f8Fr6xe3glh1dNzonPvos7Y2O2IXeS0vTg02t97vL7eLJJJ9H/QH4oDm8B447HwAAAABJRU5ErkJggg=="
+            alt="">
+
+        <h3>{{ user.username }}</h3>
+        <p>Email : {{ user.email }}</p>
+        <p>MOB : {{ user.ph_number }}</p>
+        <p>ID : {{ session.user_id }}</p>
+
+    </div>
+
+    <div class="updates">
+        <a href="/update_profile">Update Account</a>
+        <a href="/change_password">Change Password</a>
+    </div>
+
+    <div class="close">
+        <a href="/logout">Log Out</a>
+    </div>
+
+    {% else %}
+    <p>User Not Found </p>
+
+    {% endif %}
+
+    <script>
+        setTimeout(() => {
+            document.querySelectorAll('.flash').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateX(100%)';
+                setTimeout(() => el.remove(), 400);
+            });
+        }, 4000);
+    </script>
+</body>
+
+</html>

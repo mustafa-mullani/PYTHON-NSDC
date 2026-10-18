@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <STyle>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", Arial, sans-serif;
+        }
+
+        /* Page background */
+        body {
+            background: #f4f6f9;
+            padding: 30px;
+        }
+
+        /* Main container */
+        .hotel-contener {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Hotel title */
+        .hotel-contener h3 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        /* Each hall card */
+        .hotel-content {
+            display: flex;
+            gap: 25px;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .hotel-content:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Hall images */
+        .hotel-content img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Hall text content */
+        .hall-content {
+            flex: 1;
+        }
+
+        /* Hall name */
+        .hall-content h2 {
+            color: #1c3d5a;
+            margin-bottom: 10px;
+        }
+
+        /* Description */
+        .hall-content p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        /* Sub headings */
+        .hall-content h6 {
+            font-size: 14px;
+            color: #222;
+            margin-top: 12px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        /* Facilities list style */
+        .hall-content p:last-child {
+            white-space: pre-line;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hotel-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hotel-content img {
+                width: 100%;
+                height: 220px;
+            }
+        }
+
+        .hall-content a {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 26px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #ffffff;
+            background: linear-gradient(135deg, #1a5276, #2c7fb8);
+            border-radius: 25px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(26, 82, 118, 0.3);
+        }
+
+        /* Hover Effect */
+        .hall-content a:hover {
+            background: linear-gradient(135deg, #154360, #1f618d);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(26, 82, 118, 0.4);
+        }
+
+        /* Active (Click) Effect */
+        .hall-content a:active {
+            transform: scale(0.96);
+        }
+
+        /* Mobile Friendly */
+        @media (max-width: 500px) {
+            .hall-content a {
+                width: 100%;
+                text-align: center;
+                padding: 12px;
+                font-size: 16px;
+            }
+        }
+    </STyle>
+</head>
+
+<body>
+    <form>
+        <div class="hotel-contener">
+            <h3>Hotel Maratha Regency</h3>
+            <div class="hotel-content">
+                <img src="{{ url_for('static', filename='emrald.jpg') }}">
+                <div class="hall-content">
+                    <h2>Emrald Hall</h2>
+                    <p>Hotel Maratha is fully equipped to host small family / corporate events and conferences. Our
+                        convention space Emralled Hall can be a great destination to bring together your contacts and do
+                        more with your business in Kolhapur. A well-organized parking space adds to our ability to host
+                        a large number of guests for an event/celebration.</p>
+                    <h6>Capacity</h6>
+                    <p>150 Person approx </p>
+                    <h6>Facilities & Amenities</h6>
+                    <p> Air Conditioning,
+                        High-speed Wi-Fi,
+                        Projector & Screen,
+                        LED / LCD Display,
+                        Sound system & Microphone,
+                        Podium / Stage,
+                        Whiteboard / Flip chart,
+                        Power backup,
+                        Lighting control.
+                    </p>
+                    <a href="{{ url_for('select_hall', hall_name='Emrald') }}">Book</a>
+                </div>
+            </div>
+
+            <div class="hotel-content">
+                <img src="{{url_for('static', filename='pearl_hall.jpg')}}">
+                <div class="hall-content">
+                    <h2>Pearl Hall</h2>
+                    <p>A compact and professional conference hall designed for small meetings, corporate discussions,
+                        training sessions, and presentations. Ideal for focused and productive gatherings.</p>
+                    <h6>Capacity</h6>
+                    <p>Maximum Capacity: 30 Persons</p>
+                    <h6>Facilities & Amenities</h6>
+                    <p>
+                        Fully Air-Conditioned,
+                        High-Speed Wi-Fi,
+                        Projector with Screen,
+                        LED TV Display,
+                        Sound System with Microphone,
+                        Podium / Speaker Stand,
+                        Whiteboard & Markers,
+                        Power Backup,
+                        Adjustable Lighting.
+                    </p>
+                    <a href="{{ url_for('select_hall', hall_name='Pearl') }}">Book</a>
+                </div>
+            </div>
+
+            <div class="hotel-content">
+                <img src="{{ url_for('static', filename='ruby.jpg')}}">
+                <div class="hall-content">
+                    <h2>Ruby Hall</h2>
+                    <p>A spacious and well-equipped conference hall designed for medium-scale corporate events,
+                        seminars, workshops, and business meetings. Perfect for professional gatherings with modern
+                        amenities.</p>
+                    <h6>Capacity</h6>
+                    <p>Maximum Capacity: 70 Persons</p>
+                    <h6>Facilities & Amenities</h6>
+                    <p>
+                        Fully Air-Conditioned,
+                        High-Speed Wi-Fi,
+                        HD Projector with Large Screen,
+                        LED / LCD Display,
+                        Professional Sound System,
+                        Wireless & Collar Microphones,
+                        Podium & Stage,
+                        Whiteboard / Flip Chart,
+                        Power Backup,
+                        Adjustable Lighting System.
+                    </p>
+                    <a href="{{ url_for('select_hall', hall_name='Ruby') }}">Book</a>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</body>
+
+</html>

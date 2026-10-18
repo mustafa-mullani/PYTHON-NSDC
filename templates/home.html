@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <style>
+        /* --- Global Styles --- */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Heading */
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 30px;
+        }
+
+        /* Content Section */
+        .content,
+        .Home,
+        .feture {
+            width: 80%;
+            max-width: 800px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .content h4,
+        .Home h2,
+        .feture h2 {
+            margin-bottom: 10px;
+            color: #1a73e8;
+        }
+
+        /* Paragraph Styling */
+        p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Features Section */
+        .feture p {
+            line-height: 1.8;
+            padding-left: 10px;
+        }
+
+        /* Bullet-like styling before each feature */
+        .feture p br::after {
+            content: "• ";
+        }
+
+        /* Make layout responsive */
+        @media (max-width: 600px) {
+
+            .content,
+            .Home,
+            .feture {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+        }
+
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+        }
+
+        .popup-box {
+            background: white;
+            padding: 25px;
+            width: 320px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .popup-box button {
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: #16a34a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .flash-container {
+            position: fixed;
+            top: 80px;
+            right: 630px;
+            z-index: 9999;
+        }
+
+        .flash {
+            min-width: 260px;
+            margin-bottom: 12px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            animation: slideIn 0.4s ease;
+        }
+
+        /* Success */
+        .flash-success {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+        }
+
+        /* Error */
+        .flash-error {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+        }
+
+        /* Warning */
+        .flash-warning {
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+        }
+
+        /* Default */
+        .flash-message {
+            background: #334155;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+
+    {% include "nav.html" %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-container">
+        {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    {% block content %}
+    <h2>Welcome To EventExpert</h2>
+    <div class="content">
+        <h4>Manage Events Anytime, Anywhere</h4>
+        <p>A complete event solution designed to streamline planning and improve event experience.</p>
+    </div>
+    <div class="Home">
+        <h2>Make Every Event Memorable!</h2>
+        <p>Discover, book, and manage events with ease. Your one-stop platform for smart event planning.</p>
+    </div>
+    <div class="feture">
+        <h2>Features</h2>
+        <p>
+            ● Event Booking <br>
+            ● Dashboard <br>
+            ● Ticket Management <br>
+            ● Live Event Tracking <br>
+            ● User Management <br>
+            ● Event Categories <br>
+            ● Notification System <br>
+            ● Payment Integration <br>
+            ● Attendance Tracking <br>
+            ● Certificate Generation <br>
+            ● Reports & Analytics <br>
+            ● Venue Management <br>
+            ● Participant Management <br>
+            ● Gallery Management <br>
+            ● Admin Panel <br>
+            ● Feedback System <br>
+            ● Sponsor/Partner Management
+        </p>
+    </div>
+
+    {% endblock %}
+
+    <script>
+        setTimeout(() => {
+            document.querySelectorAll('.flash').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateX(100%)';
+                setTimeout(() => el.remove(), 400);
+            });
+        }, 4000);
+    </script>
+</body>
+
+</html>

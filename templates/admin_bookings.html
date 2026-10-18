@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin – Bookings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            background: #f1f5f9;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #0f172a;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        th,
+        td {
+            padding: 14px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background: #1e293b;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .pending {
+            background: #fde68a;
+            color: #92400e;
+        }
+
+        .approved {
+            background: #bfdbfe;
+            color: #1e40af;
+        }
+
+        .paid {
+            background: #bbf7d0;
+            color: #166534;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .btn-view {
+            background: #0ea5e9;
+        }
+
+        .btn-approve {
+            background: #22c55e;
+        }
+
+        .btn-reject {
+            background: red;
+        }
+
+
+        .flash-container {
+            position: fixed;
+            top: 80px;
+            right: 630px;
+            z-index: 9999;
+        }
+
+        .flash {
+            min-width: 260px;
+            margin-bottom: 12px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            animation: slideIn 0.4s ease;
+        }
+
+        /* Success */
+        .flash-success {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+        }
+
+        /* Error */
+        .flash-error {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+        }
+
+        /* Warning */
+        .flash-warning {
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+        }
+
+        /* Default */
+        .flash-message {
+            background: #334155;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include "nav.html" %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-container">
+        {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <h2>📋 Admin – Bookings</h2>
+
+        {% if bookings %}
+        <table>
+            <tr>
+                <th>Event</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+                <th>Details</th>
+            </tr>
+
+            {% for b in bookings %}
+            <tr>
+                <td>{{ b.event_name }}</td>
+                <td>{{ b.event_date }}</td>
+
+                <td>
+                    {% if b.status == 'pending' %}
+                    <span class="status pending">Pending</span>
+                    {% elif b.status == 'approved' %}
+                    <span class="status accepted">Approved</span>
+                    {% elif b.status == 'rejected' %}
+                    <span class="status rejected">Rejected</span>
+                    {% elif b.status == 'paid' %}
+                    <span class="status paid">Paid</span>
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if b.status == 'pending' %}
+
+                    <a href="{{ url_for('admin_accept', booking_id=b.id) }}" class="btn btn-approve">Accept</a>
+
+                    <a href="{{ url_for('admin_reject', booking_id=b.id) }}" class="btn btn-reject">Reject</a>
+
+                    {% endif %}
+                </td>
+
+                <td>
+                    <a href="{{ url_for('admin_booking_details', booking_id=b.id, source='Bookings') }}"
+                        class="btn btn-view">View Details</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>No bookings available.</p>
+        {% endif %}
+    </div>
+    <script>
+        setTimeout(() => {
+            document.querySelectorAll('.flash').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateX(100%)';
+                setTimeout(() => el.remove(), 400);
+            });
+        }, 4000);
+    </script>
+</body>
+
+</html>

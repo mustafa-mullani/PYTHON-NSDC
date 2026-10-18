@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>about page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f3f3f3;
+        }
+
+        h2 {
+            color: #222;
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        p {
+            color: #444;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .contener,
+        .content,
+        .key,
+        .scope {
+            background: #fff;
+            width: 90%;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    {% include "nav.html" %}
+
+
+    <div class="contener">
+        <H2>Project Introduction</H2>
+        <p>The Event Management System is a web-based application designed to manage and organize various types of
+            events efficiently. It provides a centralized platform for users to view events, register, and participate
+            easily.
+            This system can be used by students, event organizers, faculty, and the general public who manage or
+            participate in events.</p>
+    </div>
+
+    <div class="content">
+        <h2>Purpose of the System</h2>
+        <p>The system is developed to replace manual event handling, which is time-consuming and leads to errors.
+            It solves problems like: <br>
+
+            Manual registration and ticketing <br>
+
+            Lack of real-time updates <br>
+
+            Difficulty in tracking participants and attendance <br>
+
+            Poor communication between organizers and participants</p>
+    </div>
+
+    <div class="key">
+        <h2>Key Features</h2>
+        <p>Event Booking <br>
+
+            Dashboard for organizers <br>
+
+            Ticket Management <br>
+
+            Live Event Tracking <br>
+
+            User Management</p>
+    </div>
+
+    <div class="scope">
+        <h2>Scope of the Project</h2>
+        <p>This system can be used for: <br>
+
+            Corporate Events <br>
+
+            Seminars, Webinars, Training Programs <br>
+
+            Social and Cultural Events</p>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Bill</title>
+   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 850px;
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 18px;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+        transition: 0.3s ease;
+    }
+
+    .container:hover {
+        transform: translateY(-4px);
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 24px;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 30px;
+        border-bottom: 3px solid #f59e0b;
+        display: inline-block;
+        padding-bottom: 8px;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    .table tr {
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .table td {
+        padding: 14px 10px;
+        font-size: 15px;
+        color: #475569;
+    }
+
+    .table td:first-child {
+        font-weight: 600;
+        color: #0f172a;
+        width: 40%;
+    }
+
+    .table tr:hover {
+        background: #f8fafc;
+    }
+
+    .actions {
+        text-align: center;
+        margin-top: 35px;
+    }
+
+    .btn {
+        padding: 12px 22px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 500;
+        margin: 0 10px;
+        transition: 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .confirm {
+        background: #f59e0b;
+        color: white;
+        box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+    }
+
+    .confirm:hover {
+        background: #d97706;
+        transform: scale(1.05);
+    }
+
+    .cancel {
+        background: #e2e8f0;
+        color: #334155;
+    }
+
+    .cancel:hover {
+        background: #cbd5e1;
+        transform: scale(1.05);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+        .container {
+            padding: 25px;
+        }
+
+        .table td {
+            font-size: 14px;
+            padding: 10px 6px;
+        }
+
+        .btn {
+            width: 100%;
+            margin: 10px 0;
+        }
+    }
+</style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Confirm Bill Generation</h2>
+
+        <table class="table">
+            <tr>
+                <td><b>Customer</b></td>
+                <td>{{ booking.username }}</td>
+            </tr>
+            <tr>
+                <td><b>Email</b></td>
+                <td>{{ booking.email }}</td>
+            </tr>
+            <tr>
+                <td><b>Phone</b></td>
+                <td>{{ booking.ph_number }}</td>
+            </tr>
+            <tr>
+                <td><b>Event</b></td>
+                <td>{{ booking.event_name }}</td>
+            </tr>
+            <tr>
+                <td><b>Date</b></td>
+                <td>{{ booking.event_date }}</td>
+            </tr>
+            <tr>
+                <td><b>Menu Type</b></td>
+                <td>{{ booking.menu_type }}</td>
+            </tr>
+            <tr>
+                <td><b>Guests</b></td>
+                <td>{{ booking.capacity }}</td>
+            </tr>
+        </table>
+
+        <div class="actions">
+            <form method="POST" action="{{ url_for('generate_bill', booking_id=booking.id) }}">
+                <button class="btn confirm">Confirm & Generate Invoice</button>
+                <a href="{{ url_for('admin_reports') }}" class="btn cancel">Cancel</a>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

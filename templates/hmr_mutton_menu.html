@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutton Menu</title>
+
+    <style>
+        /* Page background */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", Arial, sans-serif;
+            background: #f4f6f9;
+        }
+
+        /* Main container */
+        .radio-contener {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Title */
+        .radio-contener h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        /* Section blocks */
+        .radio-btn {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* Section heading */
+        .radio-btn h3 {
+            margin-bottom: 15px;
+            color: #34495e;
+            border-bottom: 2px solid #27ae60;
+            display: inline-block;
+            padding-bottom: 5px;
+            font-size: 18px;
+        }
+
+        /* Radio item layout */
+        .radio-btn label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.25s ease;
+            font-size: 15px;
+            color: #2c3e50;
+        }
+
+        /* Hover effect */
+        .radio-btn label:hover {
+            background: #eafaf1;
+        }
+
+        /* Radio buttons */
+        .radio-btn input[type="radio"] {
+            accent-color: #27ae60;
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+        /* Submit Button Styling */
+        button {
+            margin: 30px auto 0;
+            display: block;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            border: none;
+            border-radius: 30px;
+            padding: 14px 50px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(39, 174, 96, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        /* Hover effect */
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.45);
+            background: linear-gradient(135deg, #219150, #27ae60);
+        }
+
+        /* Active (click) effect */
+        button:active {
+            transform: scale(0.97);
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+        }
+
+        /* Focus accessibility */
+        button:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(39, 174, 96, 0.25);
+        }
+
+        /* Mobile friendly */
+        @media (max-width: 600px) {
+            .radio-contener {
+                padding: 20px;
+            }
+
+            .radio-btn {
+                padding: 15px;
+            }
+
+            button {
+                width: 100%;
+                padding: 14px 0;
+                border-radius: 12px;
+            }
+        }
+    </style>
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='voice-assistant.css') }}">
+    <script src="{{ url_for('static', filename='voice-assistant.js') }}" defer></script>
+</head>
+
+<body>
+    <form method="POST">
+        <div class="radio-contener">
+            <h2>Mutton Menu</h2>
+            <div class="radio-btn">
+                <h3>Chicken Starters</h3>
+                <label>
+                    <input type="radio" name="chicken _starter" value="Chicken  Banjara Kebab">
+                    Chicken Banjara Kebab
+                </label>
+                <label>
+                    <input type="radio" name="chicken_starter" value="Chicken  Pahadi Kebab">
+                    Chicken Pahadi Kebab
+                </label>
+                <label>
+                    <input type="radio" name="chicken_starter" value="Chicken Multani Kebab">
+                    Chicken Multani Kebab
+                </label>
+                <label>
+                    <input type="radio" name="chicken_starter" value="Chicken  Chilly">
+                    Chicken Chilly
+                </label>
+
+            </div>
+
+            <div class="radio-btn">
+                <h3>Non-Veg Soup</h3>
+                <label>
+                    <input type="radio" name="c_soup" value="Chicken Manchow Soup" required>
+                    Chicken Manchow Soup
+                </label>
+
+                <label>
+                    <input type="radio" name="c_soup" value="Chicken Hot & Sour Soup">
+                    Chicken Hot & Sour Soup
+                </label>
+
+                <label>
+                    <input type="radio" name="c_soup" value="Chicken Clear Soup">
+                    Chicken Clear Soup
+                </label>
+            </div>
+
+            <div class="radio-btn">
+                <h3>Mutton Main Course</h3>
+                <label>
+                    <input type="radio" name="mutton_main_course" value="Mutton Roganjosh">
+                    Mutton Roganjosh
+                </label>
+                <label>
+                    <input type="radio" name="mutton_main_course" value="Mutton Hydrabadi">
+                    Mutton Hydrabadi
+                </label>
+                <label>
+                    <input type="radio" name="mutton_main_course" value="Mutton kadhai">
+                    Mutton kadhai
+                </label>
+                <label>
+                    <input type="radio" name="mutton_main_course" value="Mutton Masala">
+                    Mutton Masala
+                </label>
+                <label>
+                    <input type="radio" name="mutton_main_course" value="Mutton Kharda">
+                    Mutton Kharda
+                </label>
+            </div>
+
+            <div class="radio-btn">
+                <h3>Rice</h3>
+                <label>
+                    <input type="radio" name="m_rice" value="Steam Rice">
+                    Steam Rice
+                </label>
+                <label>
+                    <input type="radio" name="m_rice" value="Jeera Rice">
+                    Jeera Rice
+                </label>
+                <label>
+                    <input type="radio" name="m_rice" value="Biryani Rice">
+                    Biryani Rice
+                </label>
+            </div>
+
+            <div class="radio-btn">
+                <h3>Raita</h3>
+                <label>
+                    <input type="radio" name="m_raita" value="Green Salad">
+                    Green Salad
+                </label>
+                <label>
+                    <input type="radio" name="m_raita" value="Boondhi Raita">
+                    Boondhi Raita
+                </label>
+                <label>
+                    <input type="radio" name="m_raita" value="Mix Veg Raita">
+                    Mix Veg Raita
+                </label>
+            </div>
+
+            <div class="radio-btn">
+                <h3>Dessert</h3>
+                <label>
+                    <input type="radio" name="m_dessert" value="Gulab Jamun">
+                    Gulab Jamun
+                </label>
+                <label>
+                    <input type="radio" name="m_dessert" value="Amrakhand">
+                    Amrakhand
+                </label>
+                <label>
+                    <input type="radio" name="m_dessert" value="Fruitkhand">
+                    Fruitkhand
+                </label>
+                <label>
+                    <input type="radio" name="m_dessert" value="Ice-Cream">
+                    Ice-Cream
+                </label>
+                <label>
+                    <input type="radio" name="m_dessert" value="Shrikhand">
+                    Shrikhand
+                </label>
+            </div>
+            <button type="submit">Next</button>
+        </div>
+    </form>
+</body>
+
+</html>

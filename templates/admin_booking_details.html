@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Details</title>
+
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #0f172a;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .item {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .item strong {
+            display: block;
+            color: #334155;
+            margin-bottom: 3px;
+        }
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .pending {
+            background: #fde68a;
+            color: #92400e;
+        }
+
+        .approved {
+            background: #bfdbfe;
+            color: #1e40af;
+        }
+
+        .rejected {
+            background: #fecaca;
+            color: #7f1d1d;
+        }
+
+        .paid {
+            background: #bbf7d0;
+            color: #166534;
+        }
+
+        ul {
+            margin: 8px 0 0 18px;
+        }
+
+        .back {
+            margin-top: 25px;
+            display: inline-block;
+            text-decoration: none;
+            background: #1e293b;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <div class="container">
+        <h2>📋 Booking Details</h2>
+
+        <div class="grid">
+            <div class="item">
+                <strong>Hotel Name</strong>
+                {{ booking.hotel_name }}
+            </div>
+
+            <div class="item">
+                <strong>Hall Name</strong>
+                {{ booking.hall_name }}
+            </div>
+
+            <div class="item">
+                <strong>User Name</strong>
+                {{ booking.username }}
+            </div>
+
+            <div class="item">
+                <strong>Phone Number</strong>
+                {{ booking.ph_number }}
+            </div>
+
+            <div class="item">
+                <strong>Email</strong>
+                {{ booking.email }}
+            </div>
+
+            <div class="item">
+                <strong>Event Name</strong>
+                {{ booking.event_name }}
+            </div>
+
+            <div class="item">
+                <strong>Event Type</strong>
+                {{ booking.event_type }}
+            </div>
+
+            <div class="item">
+                <strong>Event Date</strong>
+                {{ booking.event_date }}
+            </div>
+
+            <div class="item">
+                <strong>Start Time</strong>
+                {{ booking.start_time }}
+            </div>
+
+            <div class="item">
+                <strong>End Time</strong>
+                {{ booking.end_time }}
+            </div>
+
+            <div class="item">
+                <strong>Capacity</strong>
+                {{ booking.capacity }}
+            </div>
+
+            <div class="item">
+                <strong>Menu Type</strong>
+                {{ booking.menu_type }}
+            </div>
+
+            <div class="item">
+                <strong>Status</strong>
+                <span class="status {{ booking.status }}">
+                    {{ booking.status|capitalize }}
+                </span>
+            </div>
+
+            <div class="item">
+                <strong>Payment Status</strong>
+                {{ booking.payment_status }}
+            </div>
+        </div>
+
+        <div class="item" style="margin-top:20px;">
+            <strong>Menu Items</strong>
+            <ul>
+                {% for m in menu_items %}
+                <li><strong>{{ m.category }}:</strong> {{ m.item_name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% if source == 'reports' %}
+        <a href="{{ url_for('admin_reports') }}" class="back">⬅ Back to Reports</a>
+        {% else %}
+        <a href="{{ url_for('admin_bookings') }}" class="back">⬅ Back to Bookings</a>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>

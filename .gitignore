@@ -1,0 +1,18 @@
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Local databases and database tools
+*.db
+*.sqlite
+*.sqlite3
+*.sqbpro

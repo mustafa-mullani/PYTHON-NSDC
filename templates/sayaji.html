@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sataji</title>
+    <style>
+        /* ===== Reset ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ===== Body ===== */
+        body {
+            font-family: "Poppins", Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ===== Main Container ===== */
+        .hotel-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        /* ===== Page Title ===== */
+        .hotel-container h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #2c3e50;
+        }
+
+        /* ===== Hotel Content Card ===== */
+        .hotel-content {
+            display: flex;
+            gap: 25px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Hover effect */
+        .hotel-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ===== Images ===== */
+        .hotel-content img {
+            width: 300px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* ===== Hall Content ===== */
+        .hall-content {
+            flex: 1;
+        }
+
+        /* Hall Title */
+        .hall-content h3 {
+            font-size: 24px;
+            color: #1a5276;
+            margin-bottom: 10px;
+        }
+
+        /* Paragraphs */
+        .hall-content p {
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        /* Bold section titles */
+        .hall-content p b {
+            color: #000;
+            font-size: 16px;
+        }
+
+        /* ===== Responsive Design ===== */
+        @media (max-width: 900px) {
+            .hotel-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .hotel-content img {
+                width: 100%;
+                height: 240px;
+            }
+
+            .hall-content h3 {
+                margin-top: 15px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .hotel-container {
+                padding: 10px;
+            }
+
+            .hotel-container h2 {
+                font-size: 26px;
+            }
+
+            .hall-content h3 {
+                font-size: 20px;
+            }
+
+            .hall-content p {
+                font-size: 14px;
+            }
+        }
+
+        .hall-content a {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 26px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #ffffff;
+            background: linear-gradient(135deg, #1a5276, #2c7fb8);
+            border-radius: 25px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(26, 82, 118, 0.3);
+        }
+
+        /* Hover Effect */
+        .hall-content a:hover {
+            background: linear-gradient(135deg, #154360, #1f618d);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(26, 82, 118, 0.4);
+        }
+
+        /* Active (Click) Effect */
+        .hall-content a:active {
+            transform: scale(0.96);
+        }
+
+        /* Mobile Friendly */
+        @media (max-width: 500px) {
+            .hall-content a {
+                width: 100%;
+                text-align: center;
+                padding: 12px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hotel-container">
+        <h2>Sayaji Hotel</h2>
+        <div class="hotel-content">
+            <img src="{{ url_for('static', filename='dwarka.jpg')}}">
+            <div class="hall-content">
+                <h3>Dwarka Boardroom</h3>
+                <P>Planning an exclusive private gathering or corporate event? Step into the versatile Dwarka Boardroom,
+                    your premier venue choice! Boasting a spacious 304 square feet, it accommodates up to 25 guests,
+                    perfect for business meetings. Equipped with state-of-the-art amenities and advanced technology, our
+                    dedicated team ensures seamless event coordination.</P>
+                <P><b>Capacity</b><br>
+                    Suitable for 20–30 people <br>
+                    Ideal for small gatherings</P>
+                <P><b>Basic Facilities</b>
+                    <br>
+                    Comfortable chairs & tables,
+                    Good ventilation / AC,
+                    Proper lighting,
+                    Clean washrooms,
+                    Drinking water,
+                    Power backup (inverter/generator).
+                </P>
+                <a href="{{ url_for('select_hall', hall_name='Dwarka Boardroom') }}">Book</a>
+            </div>
+        </div>
+
+        <div class="hotel-content">
+            <img src="{{ url_for('static', filename='nalanda.jpg')}}">
+            <div class="hall-content">
+                <h3>Nalanda Conference Room</h3>
+                <P>Planning an elite conference ? Step into the sophisticated Nalanda Conference Room, your premier
+                    venue choice! Boasting a spacious 1927 square feet, it accommodates up to 60 guests, perfect for
+                    business meetings. Equipped with state-of-the-art amenities and advanced technology, our dedicated
+                    team ensures seamless event coordination.</P>
+                <P><b>Capacity</b><br>
+                    Suitable for 50–70 people <br>
+                    Comfortable seating for 60 guests</P>
+                <P><b>Basic Facilities</b>
+                    <br>
+                    AC / Non-AC options
+                    Comfortable chairs & tables
+                    Proper lighting & ventilation
+                    Clean washrooms
+                    Drinking water
+                    Power backup (generator/inverter)
+                </P>
+                <a href="{{ url_for('select_hall', hall_name='Nalanda Conference Room') }}">Book</a>
+            </div>
+        </div>
+
+        <div class="hotel-content">
+            <img src="{{ url_for('static', filename='megh_malhar.jpg')}}">
+            <div class="hall-content">
+                <h3>Megh Malhar</h3>
+                <P>Megh Malhar offers a spacious venue for hosting large-scale events, including weddings, conferences,
+                    and seminars. With its grand architecture and exquisite decor, it provides a memorable setting for
+                    any occasion..</P>
+                <P><b>Capacity</b><br>
+                    Suitable for 80–120 people <br>
+                    Comfortable seating for 100 guests</P>
+                <P><b>Basic Facilities</b>
+                    <br>
+                    Fully Air-Conditioned
+                    Comfortable chairs & dining tables
+                    Proper lighting & ventilation
+                    Clean & separate washrooms
+                    Drinking water facility
+                    Power backup (generator)
+                </P>
+                <a href="{{ url_for('select_hall', hall_name='Megh Malhar') }}">Book</a>
+            </div>
+        </div>
+
+        <div class="hotel-content">
+            <img src="{{ url_for('static', filename='basant.jpg')}}">
+            <div class="hall-content">
+                <h3>Basant Banquet Hall</h3>
+                <P>Step into a realm of unparalleled sophistication at Basant Banquet Hall, where each occasion is a
+                    symphony of grace and opulence. With a steadfast dedication to perfection, we curate extraordinary
+                    moments amidst an ambiance of timeless allure. Whether for weddings or corporate affairs, our venue
+                    radiates a blend of timeless charm and contemporary allure, ensuring unforgettable celebrations</P>
+                <P><b>Capacity</b><br>
+                    Suitable for 180–220 people <br>
+                    Comfortable seating for 200 guests</P>
+                <P><b>Basic Facilities</b>
+                    <br>
+                    Fully Air-Conditioned
+                    Comfortable chairs & dining tables
+                    Proper lighting & ventilation
+                    Clean & separate washrooms
+                    Drinking water facility
+                    Power backup (generator)
+                </P>
+                <a href="{{ url_for('select_hall', hall_name='Basant Banquet') }}">Book</a>
+            </div>
+        </div>
+
+        <div class="hotel-content">
+            <img src="{{ url_for('static', filename='sky_garden.jpg')}}">
+            <div class="hall-content">
+                <h3>Sky Green Banquet</h3>
+                <P>Introducing Sky Green Banquets, where elegance converges with opulence. Featuring a spacious 2692 sq.
+                    ft. venue, it stands as Kolhapur's premier destination for all your special events. Revel in
+                    unmatched luxury with panoramic vistas and cutting-edge facilities crafted to surpass your desires.
+                    Whether it's a corporate gathering or a grand celebration, Sky Green Banquets promises a setting of
+                    timeless sophistication, ensuring every moment is extraordinary.</P>
+                <P><b>Capacity</b><br>
+                    Suitable for 50–90 people <br>
+                    Comfortable seating for 70 guests</P>
+                <P><b>Basic Facilities</b>
+                    <br>
+                    Fully Air-Conditioned
+                    Comfortable chairs & dining tables
+                    Proper lighting & ventilation
+                    Clean & separate washrooms
+                    Drinking water facility
+                    Power backup (generator)
+                </P>
+                <<a href="{{ url_for('select_hall', hall_name='Sky Green Banquet') }}">Book</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

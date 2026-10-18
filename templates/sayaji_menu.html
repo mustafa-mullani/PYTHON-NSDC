@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>menue</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body */
+        body {
+            font-family: "Inter", "Segoe UI", Arial, sans-serif;
+            background-color: #f4f6f8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #2c3e50;
+        }
+
+        /* Page Title */
+        h2 {
+            margin: 40px 0 25px;
+            font-size: 26px;
+            font-weight: 600;
+            color: #1f2933;
+        }
+
+        /* Container */
+        .menue-contener {
+            width: 90%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            /* ONE BY ONE */
+            gap: 24px;
+            /* space between menus */
+
+        }
+
+        /* Card */
+        .menue-content {
+            background: #ffffff;
+            width: 100%;
+            padding: 32px 40px;
+            border-radius: 10px;
+            border: 1px solid #e1e6eb;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Heading */
+        .menue-content h4 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0f766e;
+            margin-bottom: 16px;
+        }
+
+        /* Menu Text */
+        .menue-content p {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #4b5563;
+            white-space: pre-line;
+            margin-bottom: 12px;
+        }
+
+        /* Price */
+        .menue-content p:last-of-type {
+            font-size: 17px;
+            font-weight: 600;
+            color: #b91c1c;
+            margin-top: 18px;
+        }
+
+        .menue-content a.btn {
+            display: inline-block;
+            margin-top: 22px;
+            padding: 12px 32px;
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            background-color: #0f766e;
+            color: #ffffff;
+            border-radius: 6px;
+            transition: all 0.25s ease;
+            text-align: center;
+        }
+
+        /* Hover Effect */
+        .menue-content a.btn:hover {
+            background-color: #115e59;
+            transform: translateY(-1px);
+        }
+
+        /* Active Effect */
+        .menue-content a.btn:active {
+            transform: translateY(0);
+        }
+
+        /* Mobile Full Width */
+        @media (max-width: 768px) {
+            .menue-content a.btn {
+                width: 100%;
+            }
+        }
+    </style>
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='voice-assistant.css') }}">
+    <script src="{{ url_for('static', filename='voice-assistant.js') }}" defer></script>
+</head>
+
+<body>
+    <h2>Hotel Sayaji <br> Veg / Non-Veg Menue</h2>
+    <div class="menue-contener">
+        <div class="menue-content">
+            <h4>Veg Menue</h4>
+            <p> 2 Veg Starter
+                1 Veg Soup
+                2 Veg Main Course
+                1 Dal
+                1 Rice
+                Assorted Bread Basket
+                1 Raita
+                2 Dessert
+            </p>
+            <p> Charges:- 700 + GST</p>
+            <a href="/sayaji/veg_menu" class="btn">Select Menue</a>
+        </div>
+
+
+        <div class="menue-content">
+            <h4>Chicken Menue</h4>
+            <p> 2 Non-Veg Starter
+                1 Non-Veg Soup
+                2 Chicken Main Course
+                Tambda / Pandhra Rassa
+                1 Rice
+                Assorted Bread Basket
+                1 Raita
+                2 Dessert
+            </p>
+            <p> Charges:- 800 + GST</p>
+            <a href="/sayaji/chicken_menu" class="btn">Select Menue</a>
+        </div>
+
+        <div class="menue-content">
+            <h4>Mutton Menue</h4>
+            <p> 2 Non-Veg Starter
+                1 Non-Veg Soup
+                2 Mutton Main Course
+                Tambda / Pandhra Rassa
+                1 Rice
+                Assorted Bread Basket
+                1 Raita
+                2 Dessert
+            </p>
+            <p> Charges:- 900 + GST</p>
+            <a href="/sayaji/mutton_menu" class="btn">Select Menue</a>
+        </div>
+
+        <!-- <div class="menue-content">
+            <h4>Mix Menue 1</h4>
+            <p> 1 Veg Starter
+                1 Non-Veg Starter
+                1 Veg Soup
+                1 Non-Veg Soup
+                1 Veg Main Course
+                1 Chicken Main Course
+                1 Dal
+                Tambda / Pandhra Rassa
+                1 Rice
+                Assorted Bread Basket
+                1 Raita
+                1 Dessert
+            </p>
+            <p> Charges:- 800 + GST</p>
+            <a href="">
+                <button>Select Menue</button>
+            </a>
+        </div>
+
+
+        <div class="menue-content">
+            <h4>Mix Menue 2</h4>
+            <p> 1 Veg Starter
+                1 Non-Veg Starter
+                1 Veg Soup
+                1 Non-Veg Soup
+                1 Veg Main Course
+                1 Mutton Main Course
+                1 Dal
+                Tambda / Pandhra Rassa
+                1 Rice
+                Assorted Bread Basket
+                1 Raita
+                1 Dessert
+            </p>
+            <p> Charges:- 850 + GST</p>
+            <a href=""><button>Select Menue</button>
+            </a>
+        </div>
+
+
+        <div class="menue-content">
+            <h4>Mix Menue 3</h4>
+            <p> 1 Veg Starter
+                1 Non-Veg Starter
+                1 Veg Soup
+                1 Non-Veg Soup
+                1 Veg Main Course
+                1 Chicken Main Course
+                1 Mutton Main Course
+                1 Dal
+                Tambda / Pandhra Rassa
+                1 Rice
+                Assorted Bread Basket
+                1 Raita
+                1 Dessert
+            </p>
+            <p> Charges:- 950 + GST</p>
+            <a href=""><button>Select Menue</button>
+            </a>
+        </div> -->
+
+    </div>
+</body>
+
+</html>

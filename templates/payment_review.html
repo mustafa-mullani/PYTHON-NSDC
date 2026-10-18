@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Payment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            background: #f1f5f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section h3 {
+            font-size: 16px;
+            color: #334155;
+            margin-bottom: 10px;
+        }
+
+        .details p {
+            margin: 6px 0;
+            color: #475569;
+        }
+
+        .menu-list li {
+            margin: 6px 0;
+        }
+
+        .total-box {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .pay-btn {
+            display: block;
+            width: 100%;
+            margin-top: 30px;
+            padding: 14px;
+            border-radius: 10px;
+            text-align: center;
+            background: #1c57d6;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .pay-btn:hover {
+            background: #16a34a;
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include "nav.html" %}
+
+    <div class="container">
+        <div class="card">
+            <h2>🧾 Booking Payment Summary</h2>
+
+            <div class="section details">
+                <h3>📍 Booking Details</h3>
+                <p><strong>Hotel:</strong> {{ booking.hotel_name }}</p>
+                <p><strong>Hall:</strong> {{ booking.hall_name }}</p>
+                <p><strong>Event Date:</strong> {{ booking.event_date }}</p>
+                <p><strong>Time:</strong> {{ booking.start_time }} – {{ booking.end_time }}</p>
+                <p><strong>Guests:</strong> {{ booking.capacity }}</p>
+                <p><strong>Menu Type:</strong> {{ booking.menu_type }}</p>
+            </div>
+
+            <div class="section">
+                <h3>🍽 Selected Menu Items</h3>
+                <ul class="menu-list">
+                    {% for item in menu_items %}
+                    <li>{{ item.item_name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="section total-box">
+                <span>Total Amount</span>
+                <span>₹ {{ total_amount }}</span>
+            </div>
+
+            <a href="{{ url_for('payment', booking_id=booking.id) }}" class="pay-btn">
+                 Confirm & Pay
+            </a>
+        </div>
+    </div>
+
+</body>
+
+</html>

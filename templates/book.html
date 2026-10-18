@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Booking</title>
+    <style>
+        /* ===== Reset ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ===== Body ===== */
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #eef2f7, #dbe4f3);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ===== Form Card ===== */
+        .book {
+            width: 400px;
+            background: #ffffff;
+            margin: 60PX;
+            padding: 30px 32px;
+            border-radius: 16px;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        /* ===== Heading ===== */
+        .book h2 {
+            text-align: center;
+            margin-bottom: 14px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        /* ===== Flash Message ===== */
+        .flash-msg {
+            background: #ffe6e6;
+            color: #c0392b;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 16px;
+            border: 1px solid #f5c2c2;
+        }
+
+        /* ===== Labels ===== */
+        .book label {
+            display: block;
+            margin-top: 14px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #34495e;
+        }
+
+        /* ===== Inputs, Select, Textarea ===== */
+        .book input,
+        .book select,
+        .book textarea {
+            width: 100%;
+            margin-top: 6px;
+            padding: 11px 12px;
+            font-size: 14px;
+            border-radius: 8px;
+            border: 1px solid #dcdde1;
+            background: #fafafa;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        /* ===== Focus ===== */
+        .book input:focus,
+        .book select:focus,
+        .book textarea:focus {
+            background: #ffffff;
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+        }
+
+        /* ===== Placeholder ===== */
+        .book input::placeholder,
+        .book textarea::placeholder {
+            color: #95a5a6;
+        }
+
+        /* ===== Select Arrow Fix ===== */
+        .book select {
+            cursor: pointer;
+        }
+
+        /* ===== Textarea ===== */
+        .book textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        /* ===== Submit Button ===== */
+        button[type="submit"] {
+            width: 100%;
+            margin-top: 22px;
+            padding: 13px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #4a90e2, #1c6df2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== Button Hover ===== */
+        button[type="submit"]:hover {
+            background: linear-gradient(135deg, #43a047, #2ecc71);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+        }
+
+        /* ===== Button Active ===== */
+        button[type="submit"]:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        /* ===== Fade Animation ===== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== Mobile Responsive ===== */
+        @media (max-width: 480px) {
+            .book {
+                width: 92%;
+                padding: 22px;
+            }
+        }
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='voice-assistant.css') }}">
+    <script src="{{ url_for('static', filename='voice-assistant.js') }}" defer></script>
+</head>
+
+<body>
+
+    <div class="book">
+
+        <!-- Heading -->
+        <h2>Booking Information</h2>
+
+        <!-- Flash Message -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flash-msg">{{ messages[0] }}</div>
+        {% endif %}
+        {% endwith %}
+
+        <!-- Form -->
+        <form method="POST">
+
+            <label>Event name</label>
+            <input type="text" name="event_name" placeholder="Enter Event Name" required>
+
+            <label>Date</label>
+            <input type="date" name="date" required min="{{ today }}">
+
+            <label>Start Time</label>
+            <input type="time" name="s_time" required>
+
+            <label>End Time</label>
+            <input type="time" name="e_time" required>
+
+            <label>Event Type</label>
+            <select name="event_type" required>
+                <option value="">Select Event Type</option>
+                <option>Conference</option>
+                <option>Workshop</option>
+                <option>Birthday</option>
+                <option>Marriage</option>
+                <option>Other</option>
+            </select>
+
+            <label>Capacity</label>
+            <input type="number" name="capacity" placeholder="Capacity" required>
+
+            <label>Description</label>
+            <textarea name="description" placeholder="Describe your event"></textarea>
+
+            <button type="submit">Book</button>
+        </form>
+
+    </div>
+
+</body>
+
+
+</html>

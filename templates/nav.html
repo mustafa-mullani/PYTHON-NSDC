@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+        }
+
+        /* Navbar */
+        nav {
+            background-color: #1e293b;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* LEFT */
+        .nav-left {
+            flex: 1;
+        }
+
+        h3 {
+            color: #ffffff;
+        }
+
+        /* CENTER */
+        .nav-center {
+            flex: 2;
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        /* RIGHT */
+        .nav-right {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        /* Links */
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 8px 14px;
+            border-radius: 6px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #38bdf8;
+            color: #0f172a;
+        }
+
+        /* Logout button (Admin) */
+        .logout {
+            background-color: #ef4444;
+        }
+
+        .logout:hover {
+            background-color: #fecaca;
+            color: #7f1d1d;
+        }
+
+        /* Profile Dropdown */
+        .profile-dropdown {
+            position: relative;
+        }
+
+        .profile-btn {
+            background-color: #0ea5e9;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 35px;
+            right: 0;
+            background-color: #ffffff;
+            border-radius: 8px;
+            min-width: 150px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            z-index: 100;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 15px;
+            color: #0f172a;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #e0f2fe;
+        }
+
+        .profile-dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <!-- LEFT -->
+    <div class="nav-left">
+        {% if session.get("admin_logged_in") %}
+            <h3>Hotel Dashboard</h3>
+        {% else %}
+            <h3>Event Expert</h3>
+        {% endif %}
+    </div>
+
+    <!-- CENTER -->
+    <div class="nav-center">
+        {% if session.get("admin_logged_in") %}
+            <!-- ADMIN LINKS -->
+            <a href="/admin/bookings">Booking Requests</a>
+            <a href="/admin/reports">Reports</a>
+        {% else %}
+            <!-- USER LINKS -->
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/hotel">Book Event</a>
+
+            {% if session.get("user_logged_in") %}
+                <a href="/my_bookings">My Bookings</a>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <!-- RIGHT -->
+    <div class="nav-right">
+        {% if session.get("admin_logged_in") %}
+            <a href="/logout" class="logout">Logout</a>
+        {% else %}
+            <div class="profile-dropdown">
+                <button class="profile-btn">Profile</button>
+                <div class="dropdown-menu">
+                    {% if session.get("user_logged_in") %}
+                        <a href="/profile">My Profile</a>
+                        <a href="/logout">Logout</a>
+                    {% else %}
+                        <a href="/login">Login</a>
+                        <a href="/register">Register</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</nav>
+
+</body>
+</html>

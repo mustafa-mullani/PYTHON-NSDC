@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>select menue</title>
+    <style>
+        /* Page background */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", Arial, sans-serif;
+            background: #f4f6f9;
+        }
+
+        /* Main container */
+        .radio-contener {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Title */
+        .radio-contener h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        /* Section blocks */
+        .radio-btn {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* Section heading */
+        .radio-btn h3 {
+            margin-bottom: 15px;
+            color: #34495e;
+            border-bottom: 2px solid #27ae60;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* Radio item layout */
+        .radio-btn label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        /* Hover effect */
+        .radio-btn label:hover {
+            background: #eafaf1;
+        }
+
+        /* Radio buttons */
+        .radio-btn input[type="radio"] {
+            accent-color: #27ae60;
+            transform: scale(1.1);
+        }
+
+        /* Submit Button Styling */
+        button {
+            margin: 30px auto 0;
+            display: block;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            border: none;
+            border-radius: 30px;
+            padding: 14px 50px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(39, 174, 96, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        /* Hover effect */
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.45);
+            background: linear-gradient(135deg, #219150, #27ae60);
+        }
+
+        /* Active (click) effect */
+        button:active {
+            transform: scale(0.97);
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+        }
+
+        /* Focus accessibility */
+        button:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(39, 174, 96, 0.25);
+        }
+
+        /* Mobile friendly */
+        @media (max-width: 600px) {
+            button {
+                width: 100%;
+                padding: 14px 0;
+                border-radius: 12px;
+            }
+        }
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='voice-assistant.css') }}">
+    <script src="{{ url_for('static', filename='voice-assistant.js') }}" defer></script>
+</head>
+
+<body>
+    <form method="POST">
+        <div class="radio-contener">
+            <h2>Select Menu Items</h2>
+            <div class="radio-btn">
+                <h3>Veg Staters</h3>
+                <label>
+                    <input type="radio" name="veg_starter" value="Aloo Corn Tikki">
+                    Aloo Corn Tikki
+                </label>
+                <label>
+                    <input type="radio" name="veg_starter" value="Harabhara Kebab">
+                    Harabhara Kebab
+                </label>
+                <label>
+                    <input type="radio" name="veg_starter" value="Veg Manchurian">
+                    Veg Manchurian
+                </label>
+                <label>
+                    <input type="radio" name="veg_starter" value="Gobi Manchurian">
+                    Gobi Manchurian
+                </label>
+                <label>
+                    <input type="radio" name="veg_starter" value="veg 65">
+                    veg 65
+                </label>
+                <label>
+                    <input type="radio" name="veg_starter" value="Gobi 65">
+                    Gobi 65
+                </label>
+                <label>
+                    <input type="radio" name="veg_starter" value="Bhendi Kurkure">
+                    Bhendi Kurkure
+                </label>
+            </div>
+
+            <div class="radio-btn">
+                <h3>Veg Soup</h3>
+                <label>
+                    <input type="radio" name="veg_soup" value="Tomato Soup">
+                    Tomato Soup
+                </label>
+                <label>
+                    <input type="radio" name="veg_soup" value="Veg manchow soup">
+                    Veg manchow soup
+                </label>
+                <label>
+                    <input type="radio" name="veg_soup" value="Veg Hot & Sour Soup">
+                    Veg Hot & Sour Soup
+                </label>
+                <label>
+                    <input type="radio" name="veg_soup" value="Veg Sweet Corn Soup">
+                    Veg Sweet Corn Soup
+                </label>
+                <label>
+                    <input type="radio" name="veg_soup" value="veg Clear Soup">
+                    veg Clear Soup
+                </label>
+            </div>
+
+            <div class="radio-btn">
+                <h3>Veg Main Course</h3>
+                <label>
+                    <input type="radio" name="veg_main" value="Veg Kolhapuri">
+                    Veg Kolhapuri
+                </label>
+                <label>
+                    <input type="radio" name="veg_main" value="Veg Peshawari">
+                    Veg Peshawari
+                </label>
+                <label>
+                    <input type="radio" name="veg_main" value="Veg Hydrabadi">
+                    Veg Hydrabadi
+                </label>
+                <label>
+                    <input type="radio" name="veg_main" value="Veg Kadhai">
+                    Veg Kadhai
+                </label>
+                <label>
+                    <input type="radio" name="veg_main" value="Paneer Kadhai">
+                    Paneer Kadhai
+                </label>
+                <label>
+                    <input type="radio" name="veg_main" value="Paneer Tikka Masala">
+                    Paneer Tikka Masala
+                </label>
+                <label>
+                    <input type="radio" name="veg_main" value="Paneer reshmi Masala">
+                    Paneer reshmi Masala
+                </label>
+            </div>
+
+            <div class="radio-btn">
+                <h3>Rice</h3>
+                <label>
+                    <input type="radio" name="rice" value="Steam Rice">
+                    Steam Rice
+                </label>
+                <label>
+                    <input type="radio" name="rice" value="Jeera Rice">
+                    Jeera Rice
+                </label>
+                <label>
+                    <input type="radio" name="rice" value="Biryani Rice">
+                    Biryani Rice
+                </label>
+            </div>
+
+            <div class="radio-btn">
+                <h3>Dal</h3>
+                <label>
+                    <input type="radio" name="dal" value="Dal Fry">
+                    Dal Fry
+                </label>
+                <label>
+                    <input type="radio" name="dal" value="Dal Tadka">
+                    Dal Tadka
+                </label>
+                <label>
+                    <input type="radio" name="dal" value="Dal Kolhapuri">
+                    Dal Kolhapuri
+                </label>
+            </div>
+
+            <div class="radio-btn">
+                <h3>Raita</h3>
+                <label>
+                    <input type="radio" name="raita" value="Green Salad">
+                    Green Salad
+                </label>
+                <label>
+                    <input type="radio" name="raita" value="Boondhi Raita">
+                    Boondhi Raita
+                </label>
+                <label>
+                    <input type="radio" name="raita" value="Mix Veg Raita">
+                    Mix Veg Raita
+                </label>
+            </div>
+
+            <div class="radio-btn">
+                <h3>Dessert</h3>
+                <label>
+                    <input type="radio" name="dessert" value="Gulab Jamun">
+                    Gulab Jamun
+                </label>
+                <label>
+                    <input type="radio" name="dessert" value="Amrakhand">
+                    Amrakhand
+                </label>
+                <label>
+                    <input type="radio" name="dessert" value="Fruitkhand">
+                    Fruitkhand
+                </label>
+                <label>
+                    <input type="radio" name="dessert" value="Ice-Cream">
+                    Ice-Cream
+                </label>
+                <label>
+                    <input type="radio" name="dessert" value="Shrikhand">
+                    Shrikhand
+                </label>
+            </div>
+
+            <button type="submit">Next</button>
+        </div>
+    </form>
+</body>
+
+</html>

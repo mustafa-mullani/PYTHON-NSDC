@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== Reset ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ===== Body ===== */
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #f4f7fb, #e9eef5);
+            min-height: 100vh;
+        }
+
+        /* ===== Main Content Area ===== */
+        .main-content {
+            height: calc(100vh - 70px);
+            /* adjust if navbar height changes */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            font-size: 4.2rem;
+            font-weight: 800;
+            color: #1f2937;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        /* Highlighted word */
+        .page-title span {
+            background: linear-gradient(90deg, #2563eb, #0ea5e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Underline */
+        .page-title::after {
+            content: "";
+            width: 120px;
+            height: 5px;
+            background: linear-gradient(90deg, #2563eb, #0ea5e9);
+            display: block;
+            margin: 18px auto 0;
+            border-radius: 10px;
+        }
+
+
+        /* ===== Animation ===== */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.8rem;
+            }
+        }
+
+        .flash-container {
+            position: fixed;
+            top: 80px;
+            right: 560px;
+            z-index: 9999;
+        }
+
+        .flash {
+            min-width: 260px;
+            margin-bottom: 12px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            animation: slideIn 0.4s ease;
+        }
+
+        /* Success */
+        .flash-success {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+        }
+
+        /* Error */
+        .flash-error {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+        }
+
+        /* Warning */
+        .flash-warning {
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+        }
+
+        /* Default */
+        .flash-message {
+            background: #334155;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    {% include "nav.html" %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-container">
+        {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    {% block content %}
+
+    <h1 class="page-title">
+        Event <span>Expert</span>
+    </h1>
+
+    {% endblock %}
+
+    <script>
+        setTimeout(() => {
+            document.querySelectorAll('.flash').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateX(100%)';
+                setTimeout(() => el.remove(), 400);
+            });
+        }, 4000);
+    </script>
+</body>
+
+</html>

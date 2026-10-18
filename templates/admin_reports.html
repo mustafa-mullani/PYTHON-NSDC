@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Reports</title>
+
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        input,
+        button {
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        button {
+            background: #1e293b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        th {
+            background: #1e293b;
+            color: white;
+        }
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .approved {
+            background: #bfdbfe;
+            color: #1e40af;
+        }
+
+        .rejected {
+            background: #fecaca;
+            color: #7f1d1d;
+        }
+
+        .paid {
+            background: #bbf7d0;
+            color: #166534;
+        }
+
+        .btn-view {
+            background: #0ea5e9;
+            color: white;
+            padding: 6px 10px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .flash-container {
+            position: fixed;
+            top: 80px;
+            right: 560px;
+            z-index: 9999;
+        }
+
+        .flash {
+            min-width: 260px;
+            margin-bottom: 12px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            animation: slideIn 0.4s ease;
+        }
+
+        /* Success */
+        .flash-success {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+        }
+
+        /* Error */
+        .flash-error {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+        }
+
+        /* Warning */
+        .flash-warning {
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+        }
+
+        /* Default */
+        .flash-message {
+            background: #334155;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include "nav.html" %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-container">
+        {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <h2>📊 Booking Reports</h2>
+
+        <form method="POST">
+            <label>From:</label>
+            <input type="date" name="from_date" required value="{{ from_date }}">
+
+            <label>To:</label>
+            <input type="date" name="to_date" required value="{{ to_date }}">
+
+            <button type="submit">Search</button> </br></br></br>
+        </form>
+
+        <form method="post">
+            <label>Event Timeline</label>
+            <select name="filter">
+                <option value="all">All Events</option>
+                <option value="past">Past Events</option>
+                <option value="today">Today's Events</option>
+                <option value="upcoming">Upcoming Events</option>
+            </select>
+            <button type="submit">Apply</button>
+        </form>
+
+        {% if bookings %}
+        <table>
+            <tr>
+                <th>Event</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Payment</th>
+                <th>Details</th>
+                <th>Action</th>
+            </tr>
+
+            {% for b in bookings %}
+            <tr>
+                <td>{{ b.event_name }}</td>
+                <td>{{ b.event_date }}</td>
+                <td>
+                    <span class="status {{ b.status }}">{{ b.status|capitalize }}</span>
+                </td>
+                <td>{{ b.payment_status }}</td>
+                <td>
+                    <a href="{{ url_for('admin_booking_details', booking_id=b.id, source='reports') }}"
+                        class="btn-view">View Details</a>
+                </td>
+                <td>
+                    {% set event_start = (b.event_date ~ ' ' ~ b.start_time) | todatetime('%Y-%m-%d %H:%M') %}
+
+                    {% if event_start <= now and b.payment_status=='paid' and b.event_status !='ended' %} <!-- End Event
+                        button -->
+                        <a href="{{ url_for('end_event', booking_id=b.id) }}" class="btn-view">
+                            End Event
+                        </a>
+
+                        {% elif b.event_status == 'ended' and b.payment_status != 'billed' %}
+                        <!-- Generate Bill (confirmation page) -->
+                        <a href="{{ url_for('generate_bill_page', booking_id=b.id) }}" class="btn-view"
+                            style="background:#f59e0b;">
+                            Generate Bill
+                        </a>
+
+                        {% elif b.payment_status == 'billed' %}
+                        <!-- View Invoice -->
+                        <a href="{{ url_for('invoice', booking_id=b.id) }}" class="btn-view"
+                            style="background:#22c55e;">
+                            View Invoice
+                        </a>
+                        {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>No records found.</p>
+        {% endif %}
+    </div>
+    <script>
+        setTimeout(() => {
+            document.querySelectorAll('.flash').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateX(100%)';
+                setTimeout(() => el.remove(), 400);
+            });
+        }, 4000);
+    </script>
+</body>
+
+</html>

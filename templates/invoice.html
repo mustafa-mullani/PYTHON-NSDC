@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f1f5f9;
+            font-family: "Poppins", sans-serif;
+            color: #0f172a;
+        }
+
+        .invoice-wrapper {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+        }
+
+        /* Header */
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .hotel-name {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .invoice-title {
+            text-align: right;
+        }
+
+        .invoice-title h2 {
+            margin: 0;
+            font-size: 26px;
+            color: #0ea5e9;
+        }
+
+        .invoice-title p {
+            margin: 4px 0;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* Info Sections */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .info-box h4 {
+            margin-bottom: 10px;
+            color: #334155;
+            font-size: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 6px;
+        }
+
+        .info-box p {
+            margin: 6px 0;
+            font-size: 14px;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        table thead {
+            background: #1e293b;
+            color: white;
+        }
+
+        table th,
+        table td {
+            padding: 14px;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        table tbody tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        /* Total */
+        .total-box {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+
+        .total {
+            background: #f1f5f9;
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: right;
+        }
+
+        .total h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #16a34a;
+        }
+
+        /* Footer */
+        .invoice-footer {
+            margin-top: 40px;
+            border-top: 1px dashed #cbd5f5;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        /* Print */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .invoice-wrapper {
+                box-shadow: none;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="invoice-wrapper">
+
+        <!-- HEADER -->
+        <div class="invoice-header">
+            <div>
+                <div class="hotel-name">{{ bill.hotel_name }}</div>
+                <p>Event Expert Invoice</p>
+            </div>
+
+            <div class="invoice-title">
+                <h2>INVOICE</h2>
+                <p><strong>Invoice ID:</strong> {{ bill.id }}</p>
+                <p><strong>Date:</strong> {{ bill.generated_on }}</p>
+            </div>
+        </div>
+
+        <!-- INFO -->
+        <div class="info-grid">
+            <div class="info-box">
+                <h4>Customer Details</h4>
+                <p><strong>Name:</strong> {{ bill.username }}</p>
+                <p><strong>Email:</strong> {{ bill.email }}</p>
+                <p><strong>Phone:</strong> {{ bill.ph_number }}</p>
+            </div>
+
+            <div class="info-box">
+                <h4>Event Details</h4>
+                <p><strong>Event:</strong> {{ bill.event_name }}</p>
+                <p><strong>Hall:</strong> {{ bill.hall_name }}</p>
+                <p><strong>Event Date:</strong> {{ bill.event_date }}</p>
+                <p><strong>Time:</strong> {{ bill.start_time }} - {{ bill.end_time }}</p>
+            </div>
+        </div>
+
+        <!-- TABLE -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Menu Type</th>
+                    <th>Capacity</th>
+                    <th>Price / Plate</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        {% for m in menu_items %}
+                        • {{ m.item_name }}<br>
+                        {% endfor %}
+                    </td>
+
+                    <td>{{ bill.menu_type }}</td>
+                    <td>{{ bill.capacity }}</td>
+                    <td>₹ {{ price_per_plate }}</td>
+                    <td>₹ {{ bill.total_amount }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- TOTAL -->
+        <div class="total-box">
+            <div class="total">
+                <p>Grand Total</p>
+                <h3>₹ {{ bill.total_amount }}</h3>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="invoice-footer">
+            Thank you for choosing <strong>{{ bill.hotel_name }}</strong> <br>
+            This is a system generated invoice.
+        </div>
+
+    </div>
+    {% if source == 'admin' %}
+    <div style="margin-top:30px; text-align:center;">
+        <a href="{{ url_for('admin_reports') }}"
+           style="
+                display:inline-block;
+                padding:10px 18px;
+                background:#1e293b;
+                color:white;
+                border-radius:8px;
+                text-decoration:none;
+                font-size:14px;
+                font-weight:500;
+           ">
+            ⬅ Back to Reports
+        </a>
+    </div>
+{% endif %}
+
+</body>
+
+</html>
